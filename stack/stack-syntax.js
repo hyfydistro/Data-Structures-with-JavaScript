@@ -103,6 +103,27 @@ class Stack {
         //     this.pop();
         // }
     }
+
+    // "toString" method
+    // Note: In the array version, we do not need to worry about
+    // a "toString" method because the data structure will use the one
+    // already provided by the array - `Array.prototype.toString()`
+    toString() {
+        if (this.isEmpty()) {
+            return '';
+        }
+        // If stack is not empty, we will initialise the string with
+        // the first element, from the base of the stack. Then we will
+        // iterate through all the keys of the stack until its top, adding
+        // a comman (,) followed by the next element.
+        // If the stack contains only one element, the for-loop
+        // will not be executed.
+        let objString = `${this.items[0]}`;
+        for (let i = 1; i < this.count; i++) {
+            objString = `${objString}, ${this.items[i]}`;
+        }
+        return objString;
+    }
 }
 
 
@@ -123,4 +144,3 @@ count = 2
 */
 
 
-// "toString" method
