@@ -26,7 +26,7 @@
 //     }
 
 //     clear() {
-//         this.items = [;]
+//         this.items = [];
 //     }
 // }
 
@@ -144,3 +144,14 @@ count = 2
 */
 
 
+// Stack #3
+// Private Class Fields (recent as 2020)
+// Use the hash symbol (#) to declare a private property
+// Supported by Babel and only in Modern Browsers
+
+class Stack {
+    #count = 0;
+    #items = 0;
+
+    // stack methods
+}
