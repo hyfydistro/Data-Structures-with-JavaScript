@@ -182,3 +182,36 @@ console.log(postfixEvaluation("231*+9-"));
 
 
 // The Base Converter Algorithm
+
+function baseConverter(decimalNumber, base) {
+    const remainderStack = new Stack();
+    const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let number = decimalNumber;
+    let remainder;
+    let baseString = '';
+
+    if (!(base >= 2 && base <= 36)) {
+        return '';
+    }
+
+    while (number > 0) {
+        remainder = Math.floor(number % base);
+        remainderStack.push(remainder);
+        number = number.floor(number / base);
+    }
+
+    while (!remainderStack.isEmpty()) {
+        baseString += digits[remainderStack.pop()];
+    }
+
+    return baseString;
+}
+
+// Test
+console.log(baseConverter(100345, 2)); // 11000011111111001
+console.log(baseConverter(100345, 8)); // 303771
+console.log(baseConverter(100345, 16)); // 187F9
+console.log(baseConverter(100345, 35)); // 2BW0
+
+
+// Palindrom problem
