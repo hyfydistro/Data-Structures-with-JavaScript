@@ -1,6 +1,10 @@
 # Base Converter Algorithm
 
-## Shortcuts
+Pass the desired argument to the method and use it in the division operations.
+
+In the conversion from decimal to binary, the remainders will be 0 or 1; in the conversion from decimal to octagonal, the remainders will be from 0 to 8; and in the conversion from decimal to hexadecimal, the remainders can be 0 to 9 plus the letters `A` to `F` (values 10 to 15). For this reason, we need to convert these values. Sp, starting at base 11, each letter of the alphabet will represent its base. The letter `A` represents base 11, `B` represents base 12, and so on.
+
+## Different Intrepretation to the Problem
 
 JavaScript has a radix parameter option included in their methods:
 
