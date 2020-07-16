@@ -178,7 +178,7 @@ function postfixEvaluation(expressions) {
     return numberStorage.pop();
 }
 
-console.log(postfixEvaluation("231*+9-"));
+// console.log(postfixEvaluation("231*+9-"));
 
 
 // The Base Converter Algorithm
@@ -208,10 +208,78 @@ function baseConverter(decimalNumber, base) {
 }
 
 // Test
-console.log(baseConverter(100345, 2)); // 11000011111111001
-console.log(baseConverter(100345, 8)); // 303771
-console.log(baseConverter(100345, 16)); // 187F9
-console.log(baseConverter(100345, 35)); // 2BW0
+// console.log(baseConverter(100345, 2)); // 11000011111111001
+// console.log(baseConverter(100345, 8)); // 303771
+// console.log(baseConverter(100345, 16)); // 187F9
+// console.log(baseConverter(100345, 35)); // 2BW0
 
 
 // Palindrom problem
+// Using Stack
+
+function isPalindrome(str) {
+    // race car = 7 char
+    let compareStack = new Stack();
+    let regExp = /[\W_]/g;
+    str = str.toLowerCase().replace(regExp, '');
+    console.log("original string:", str);
+    let mid = Math.floor(str.length / 2);
+    console.log("mid:", mid);
+    let newStr = str.slice(mid);
+    console.log("new string to compare:", newStr);
+
+    for (let i = 0; i < mid; i += 1) {
+        compareStack.push(str[i]);
+
+        console.log("Is Pushed to Stack:", compareStack.peek());
+    }
+
+    console.log("On top of Stack:", compareStack.peek());
+
+    // If string's length is odd... do this instead!
+    if (str.length % 2 !== 0) {
+        let newMid = Math.round(str.length / 2);
+        console.log("new Mid:", newMid);
+        newStr = str.slice(newMid);
+        console.log(newStr);
+        // Do this method
+        for (let i = 0; i < mid; i += 1) {
+            console.log("compare from Stack:", compareStack.peek());
+            console.log("Compare from new string", newStr[i]);
+            if (compareStack.pop() !== newStr[i]) {
+                return false;
+            }
+        }
+    } else {
+        for (let i = 0; i < mid; i += 1) {
+            console.log("compare from Stack:", compareStack.peek());
+            console.log("Compare from new string", newStr[i]);
+            if (compareStack.pop() !== newStr[i]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// Test
+// console.log("racecar");
+// console.log("race Car");
+
+console.log("Palindrome test 1:", isPalindrome("race Car")); // true
+console.log("Palindrome test 2:", isPalindrome("not a palindrome")); // false
+console.log("Palindrome test 3:", isPalindrome(“A man, a plan, a canal.Panama”)); // true
+console.log("Palindrome test 4:", isPalindrome("not a palindrome"));
+console.log("Palindrome test 5:", isPalindrome("not a palindrome"));
+console.log("Palindrome test 6:", isPalindrome("not a palindrome"));
+console.log("Palindrome test 7:", isPalindrome("not a palindrome"));
+console.log("Palindrome test 8:", isPalindrome("not a palindrome"));
+console.log("Palindrome test 9:", isPalindrome("not a palindrome"));
+// isPalindrome(“never odd or even”); // true
+// isPalindrome(“nope”); // false
+// isPalindrome(“almostomla”); // false
+// isPalindrome(“My age is 0, 0 si ega ym.”); // true
+// isPalindrome(“1 eye for of 1 eye.”); // false
+// isPalindrome(“0_0(: /-\ :) 0–0”);
+// true
