@@ -16,6 +16,7 @@ Pass varying formats:
 
 - [ ] Deal with odd and even number if characters.
 
+
 ## Test Cases
 
 Performance Test Cases
@@ -27,10 +28,11 @@ Performance Test Cases
 Try NodeJS `performance.now()`.
 
 
-
 ## Using Stack
 
-...
+(2)
+Once the complete original string is on the stack, we can create a new string by popping each letter of the stack. This process will create the original string with the reversed work, and if they are equal, the string is palindrome.
+
 
 ## Shortcut
 
@@ -105,6 +107,7 @@ Not the most well-performing, namely on small strings.
 Either using every(), forEach, map, or reduce is faster (every() slowest to reduce fastest). Avoid Recursion - 100x slower.
 
 Performance Benchmark referenced from [11 ways to check for palindromes in JavaScript](https://itnext.io/11-way-to-check-for-palindromes-in-javascript-85dbfe7dfb5d).
+
 
 #### Check Palindromes with FOR Loop
 
