@@ -269,17 +269,10 @@ function isPalindrome(str) {
 
 console.log("Palindrome test 1:", isPalindrome("race Car")); // true
 console.log("Palindrome test 2:", isPalindrome("not a palindrome")); // false
-console.log("Palindrome test 3:", isPalindrome(“A man, a plan, a canal.Panama”)); // true
-console.log("Palindrome test 4:", isPalindrome("not a palindrome"));
-console.log("Palindrome test 5:", isPalindrome("not a palindrome"));
-console.log("Palindrome test 6:", isPalindrome("not a palindrome"));
-console.log("Palindrome test 7:", isPalindrome("not a palindrome"));
-console.log("Palindrome test 8:", isPalindrome("not a palindrome"));
-console.log("Palindrome test 9:", isPalindrome("not a palindrome"));
-// isPalindrome(“never odd or even”); // true
-// isPalindrome(“nope”); // false
-// isPalindrome(“almostomla”); // false
-// isPalindrome(“My age is 0, 0 si ega ym.”); // true
-// isPalindrome(“1 eye for of 1 eye.”); // false
-// isPalindrome(“0_0(: /-\ :) 0–0”);
-// true
+console.log("Palindrome test 3:", isPalindrome("A man, a plan, a canal.Panama")); // true
+console.log("Palindrome test 4:", isPalindrome("never odd or even")); // true
+console.log("Palindrome test 5:", isPalindrome("nope")); // false
+console.log("Palindrome test 6:", isPalindrome("almostomla")); // false
+console.log("Palindrome test 7:", isPalindrome("My age is 0, 0 si ega ym.")); // true
+console.log("Palindrome test 8:", isPalindrome("1 eye for of 1 eye.")); // false
+console.log("Palindrome test 9:", isPalindrome("0_0(: /-\ :) 0–0")); // true
