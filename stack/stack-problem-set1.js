@@ -215,58 +215,105 @@ function baseConverter(decimalNumber, base) {
 
 
 // Palindrom problem
-// Using Stack
+// (1) Using Stack
+
+// function isPalindrome(str) {
+//     // race car = 7 char
+//     let compareStack = new Stack();
+//     let regExp = /[\W_]/g;
+//     str = str.toLowerCase().replace(regExp, '');
+//     console.log("original string:", str);
+//     let mid = Math.floor(str.length / 2);
+//     console.log("mid:", mid);
+//     let newStr = str.slice(mid);
+//     console.log("new string to compare:", newStr);
+
+//     for (let i = 0; i < mid; i += 1) {
+//         compareStack.push(str[i]);
+
+//         console.log("Is Pushed to Stack:", compareStack.peek());
+//     }
+
+//     console.log("On top of Stack:", compareStack.peek());
+
+//     // If string's length is odd... do this instead!
+//     if (str.length % 2 !== 0) {
+//         let newMid = Math.round(str.length / 2);
+//         console.log("new Mid:", newMid);
+//         newStr = str.slice(newMid);
+//         console.log(newStr);
+//         // Do this method
+//         for (let i = 0; i < mid; i += 1) {
+//             console.log("compare from Stack:", compareStack.peek());
+//             console.log("Compare from new string", newStr[i]);
+//             if (compareStack.pop() !== newStr[i]) {
+//                 return false;
+//             }
+//         }
+//     } else {
+//         for (let i = 0; i < mid; i += 1) {
+//             console.log("compare from Stack:", compareStack.peek());
+//             console.log("Compare from new string", newStr[i]);
+//             if (compareStack.pop() !== newStr[i]) {
+//                 return false;
+//             }
+//         }
+//     }
+
+//     return true;
+// }
+
+
+// (2) Using Stack
+// * No filter
+
+// function isPalindrome(word) {
+//     let stack = new Stack();
+
+//     for (let i = 0; i < word.length; i++) {
+//         stack.push(word[i]);
+//     }
+
+//     let reverseWord = "";
+
+//     while (stack.size() > 0) {
+//         reverseWord += stack.pop();
+//     }
+
+//     if (word == reverseWord) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
+// (3) Using Stack
 
 function isPalindrome(str) {
-    // race car = 7 char
-    let compareStack = new Stack();
+    let stack = new Stack();
     let regExp = /[\W_]/g;
-    str = str.toLowerCase().replace(regExp, '');
-    console.log("original string:", str);
-    let mid = Math.floor(str.length / 2);
-    console.log("mid:", mid);
-    let newStr = str.slice(mid);
-    console.log("new string to compare:", newStr);
+    let newStr = str.toLowerCase().replace(regExp, '');
 
-    for (let i = 0; i < mid; i += 1) {
-        compareStack.push(str[i]);
-
-        console.log("Is Pushed to Stack:", compareStack.peek());
+    for (let i = 0; i < newStr.length; i++) {
+        stack.push(newStr[i]);
     }
 
-    console.log("On top of Stack:", compareStack.peek());
+    let reverseString = "";
 
-    // If string's length is odd... do this instead!
-    if (str.length % 2 !== 0) {
-        let newMid = Math.round(str.length / 2);
-        console.log("new Mid:", newMid);
-        newStr = str.slice(newMid);
-        console.log(newStr);
-        // Do this method
-        for (let i = 0; i < mid; i += 1) {
-            console.log("compare from Stack:", compareStack.peek());
-            console.log("Compare from new string", newStr[i]);
-            if (compareStack.pop() !== newStr[i]) {
-                return false;
-            }
-        }
+    while (stack.size() > 0) {
+        reverseString += stack.pop();
+    }
+
+    if (newStr == reverseString) {
+        return true;
     } else {
-        for (let i = 0; i < mid; i += 1) {
-            console.log("compare from Stack:", compareStack.peek());
-            console.log("Compare from new string", newStr[i]);
-            if (compareStack.pop() !== newStr[i]) {
-                return false;
-            }
-        }
+        return false;
     }
-
-    return true;
 }
 
 // Test
-// console.log("racecar");
-// console.log("race Car");
 
+console.log("Palindrome test 0:", isPalindrome("racecar")); // true
 console.log("Palindrome test 1:", isPalindrome("race Car")); // true
 console.log("Palindrome test 2:", isPalindrome("not a palindrome")); // false
 console.log("Palindrome test 3:", isPalindrome("A man, a plan, a canal.Panama")); // true
