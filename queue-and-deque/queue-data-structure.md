@@ -134,6 +134,8 @@ isEmpty() {
 
 ## Clearing the queue
 
+`clear`
+
 To clear all the elements from the queue, we can evoke the `dequeue` method until it returns `undefined` or we can simply reset the value of the `Queue` class properties to the same values as declared in its constructor.
 
 ```
