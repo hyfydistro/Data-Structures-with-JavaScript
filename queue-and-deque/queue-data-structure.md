@@ -170,7 +170,12 @@ toString() {
 
  e.g.
 ```
+const names = ['John', 'Jack', 'Camila', 'Ingrid', 'Carl'];
+const result = hotPotato(names, 7);
 
+result.eliminated.forEach(name => {
+    console.log(`${name} was eliminated from the Hot Potato game.`);
+});
 ```
 
 As the first index of the `Queue` class might not be zero, we start iterating it from the `lowestCount` index.
