@@ -55,3 +55,22 @@ class Queue {
         return objString;
     }
 }
+
+
+// EXAMPLE
+
+const queue = new Queue();
+console.log(queue.isEmpty()); // Outputs true
+
+queue.enqueue('John');
+queue.enqueue('Jack');
+console.log(queue.toString()); // John, Jack
+
+queue.enqueue('Camila');
+console.log(queue.toString()); // John, Jack, Camila
+console.log(queue.size()); // Outputs 3
+console.log(queue.isEmpty()); // Outputs false
+
+queue.dequeue(); // removes John
+queue.dequeue(); // removes Jack
+console.log(queue.toString()); // Camila
