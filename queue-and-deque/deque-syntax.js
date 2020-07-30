@@ -99,7 +99,7 @@ class Deque {
 }
 
 
-// EXAMPLE
+// TEST CASES
 
 const deque = new Deque();
 console.log(deque.isEmpty()); // outputs true
@@ -118,3 +118,4 @@ deque.addFront('John'); // add John in front
 console.log(deque.toString()); // John, Jack
 
 
+// EXAMPLE:
