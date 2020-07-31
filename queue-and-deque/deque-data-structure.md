@@ -67,3 +67,37 @@ addFront(eleemnt) {
 }
 ```
 
+## Palindrome Checker
+
+> A palindrome is a word, phrase, or other sequence of characters which reads the same backward as forward, such as "madam" or "racecar".
+
+There are different algorithms we can use to verify whether a phrase or string is a palindrome. The easiest way is reversing the string and comparing it with the original string. If both strings are equal, then we have a palindrome.
+
+The following algortihm uses a deque to solve this problem.
+
+```
+function palindromeChecker(aString) {
+    (aString === undefined || aString === null || (aString !== null && aString.length === 0)) {
+        return false;
+    }
+
+    const deque = new Deque();
+    const lowerString = aString.toLocaleLowerCase().split(' ').join(');
+    let isEqual = true;
+    let firstChar, lastChar;
+
+    for (let i = 0; i < lowerString.length; i++) {
+        deque.addBack(lowerString.charAt(i));
+    }
+
+    while (deque.size() > 1 && isEqual) {
+        firstChar = deque.removeFront();
+        lastChar = deque.removerBack();
+        if (firstChar !== lastChar) {
+            isEqual = false;
+        }
+    }
+
+    return isEqual;
+}
+```
