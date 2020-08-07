@@ -101,3 +101,25 @@ function palindromeChecker(aString) {
     return isEqual;
 }
 ```
+
+where,
+
+* `toLocaleLowerCase()` method converts a string to lowercase letters, according to the host's current locale or any locale-specifci specific case mappings.
+    The locale is based on the language settings of the browser.
+    Generally, this method returns the same result as the `toLowerCase()` method. However, for some locales, where language conflict with the regular Unicode case mappings occurs (such as Turkish whose case mappings do not follow the default case mappings in Unicode), the results may vary.
+    NB:
+        - The `toLocaleLowerCase()` method does not change the original string.
+        - `toLocaleLowerCase()` and `toLowerCase()` methods return new strings and DON'T modify the original (javaScript strings are immutable). You will need to re-assign teh value back to the element.
+
+Before we start with the algorithm logic, we need to verify whether the string that was passed as a parameter is valid. If it is not valid, then we return `false`.
+
+whether the...
+
+* string is undefined
+* string is null
+* string does not equal null AND does equal 0
+
+For this algorithm, we will use the `Deque` class we implemented in this chapter. As we can receive a string with both lowercase and capital letters, we will transform all letters to lowercase and we will also remove all the spaces. If you want to, you can also remove all special characters such as `!?-()` and so on. To keep this algorithm simple, we will skip this part.
+
+Next, will will `enqueue` all characters of the string to the `deque`. While we will have elements in the `deque` (if only one character is left, it is a palindrome) and the string is a palindrome, we will remove one element from the front and one from the back. To be a palindrome, both characters do not match, then the string is not a palindrome.
+

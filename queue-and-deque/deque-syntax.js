@@ -118,4 +118,21 @@ deque.addFront('John'); // add John in front
 console.log(deque.toString()); // John, Jack
 
 
-// EXAMPLE:
+// EXAMPLE: Palindrome Checker
+
+function palindromeChecker(string) {
+    if (string === undefined || string === null || (string !== null && string === 0)) {
+        return false;
+    }
+
+    const deque = new Deque();
+    let isEqual = true;
+    let firstChar, lastChar;
+    // Remove spaces and put into an array, and put them together as one string.
+    let lowerString = string.toLocaleLowerCase().split(' ').join('');
+
+    while (deque.size() > 1 && isEqual) {
+
+    }
+
+}
