@@ -131,8 +131,27 @@ function palindromeChecker(string) {
     // Remove spaces and put into an array, and put them together as one string.
     let lowerString = string.toLocaleLowerCase().split(' ').join('');
 
-    while (deque.size() > 1 && isEqual) {
-
+    for (let i = 0; i < lowerString.length; i++) {
+        deque.addBack(lowerString.charAt(i));
     }
 
+    while (deque.size() > 1 && isEqual) {
+        firstChar = deque.removeFront();
+        lastChar = deque.removeBack();
+
+        if (firstChar !== lastChar) {
+            isEqual = false;
+        }
+    }
+
+    return isEqual;
 }
+
+// Test Cases
+
+console.log('a', palindromeChecker('a'));
+console.log('aa', palindromeChecker('aa'));
+console.log('kayak', palindromeChecker('kayak'));
+console.log('level', palindromeChecker('level'));
+console.log('Was it a car or a cat I saw', palindromeChecker('Was it a car or a cat I saw'));
+console.log('Step on no pets', palindromeChecker('Step on no pets'));
