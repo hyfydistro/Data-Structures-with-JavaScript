@@ -79,3 +79,98 @@ The methods of the `LinkedList` class and what each are responsible for.
 * `size()`: This method returns the number of elements the linked list contains. It is similar to the `length` property of the array.
 
 * `toString()`: This method returns a string representation of the linked list. As the list uses a `Node` class as an element, we need to overwrite the default `toString` method inherited from the JavaScript `Object` class to output only the element values.
+
+
+## Pushing elements to the end of the linked list
+
+When adding an elemnt at the end of a `LinkedList` object, there can be two scenarios: one where the list is empty and we are adding its first element, or one where the list is not empty and we are appending elements to it.
+
+THe following is the implementation of the `push` method:
+```
+push(element) {
+    const node = new Node(element);
+    let current;
+
+    if (this.head == null) {
+        this.head = node;
+    } else {
+        current = this.head;
+
+        // get the last item...
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        // ...and assign next to new element to make the link
+        current.next = node;
+    }
+
+    this.count++;
+}
+```
+
+The first thing we need to do is create a new `Node` passing `element` as its value.
+
+First scenario: adding an element when the list is empty. When create a `LinkedList` object, the `head` will point to `undefined` (or it could be `null` as well).
+
+If the `head` element is `undefined` or `null` (the list is empty), it means we are addingt the first element to the list. So, all we have to do is assign the `node` to the `head`. The next `node` element will be `undefined` automatically.
+
+Second scenario: adding an element to the end of the list when it is not empty.
+
+To add an elemnt to the end of the list, we first need to find the last element. Remember that we only have a reference to the first elemnt, so we need to iterate through the list until we find the last item. To do so, we need a variable that points to the `current` item of the list.
+
+When looping through the list, we know we have reached its end when the `current.next` pointer is `undefined` or `null`. Then, all we have to do is linke the `current` element's (which is the last one) `next` pointer to the node we want to add to the list.
+
+[!important] `this.head == null` is equivalent to (`this.head === undefined || head == null`), and `current.next != null` is equivalent to (`current.next !== undefined && current.next !== null`).
+
+When we create a `Node` instance, its `next` pointer will always be `undefined`. We are OK with this because we know that it is going to be the last item on the list.
+
+And finally, we cannot forget to increment the size of the list so that we can control it and easily get the list size.
+
+
+## Removing elements from the linked list from a specific position.
+
+We are going to implement TWO methods: the first one removes an element from a specified position (`removeAt`), and the second one is based on an the element value. As in the case of the `push` method, tehre are two scenarios when removing elements from the linked list. The first scenario is removign the first element, and the second one is removing any elemnt but the first one.
+
+`removeAt`
+
+```
+removeAt(index) {
+    // check for out-of-bounds values
+    if (index >= 0 && index < this.count) {
+        let current = this.head;
+
+        // removing first item
+        if (index === 0) {
+            this.head = current.next;
+        } else {
+            let previous;
+
+            for (let i = 0; i < index; i++) {
+                previous = current;
+                current = current.next;
+            }
+
+            // link  previous with current's next: skip it to remove
+            previous.next = current.next;
+        }
+
+        this.count--;
+        return current.element;
+    }
+
+    return undefined;
+}
+```
+
+As the method is going to receive the `index` (position) of the node that needs to be removed, we need to verify whether the `index` is valid. A valid position would be from `index 0` (included) to the size of the list (`count - 1`, as the `index` starts from zero). If it is a valid position, we return `undefined` (meaning no element was removed from the list).
+
+First scenario: to remove the first element from the list (`index === 0`).
+
+So, if we want to remove the first element, all we have to do is point `head` to the second element of the list. We will make a reference to the first element of the list using the `current` variable (we will also use this to iterate the list, but we will get there in a minute). So if we assign `head` to `current.next`, we will be removing the first element. We could also assign `head` to `head.next` directly (without using the `current` variable as an alternative).
+
+Now let's say we want to remove the last item of the list, or an item from the middle of the list. To do so, we need to iterate through the nodes of the linked list until we get to the desired positon. An important detail: the `current` variable will always make a refernce to the current element of the list that we are looping through. We also need to make a reference to the lement that comes before the `current`; we will name it `previous`.
+
+After we iterate to the desired position, the `current` variable will hold the node we want to remove from the linked list. So, to remove the `current` node, all we have to do is link `previous.next`. This way, the `current` node will be lost in the computer memory and will be available for cleaning by the garbage collector.
+
+In the case of the last element, when we get off the loop in line, the `current`
