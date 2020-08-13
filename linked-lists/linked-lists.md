@@ -173,4 +173,141 @@ Now let's say we want to remove the last item of the list, or an item from the m
 
 After we iterate to the desired position, the `current` variable will hold the node we want to remove from the linked list. So, to remove the `current` node, all we have to do is link `previous.next`. This way, the `current` node will be lost in the computer memory and will be available for cleaning by the garbage collector.
 
-In the case of the last element, when we get off the loop in line, the `current`
+In the case of the last element, when we get off the loop in line, the `current` variable will be a reference to the last node of the list (the one we want to remove). The `current.next` value will be `undefined` (because it is the last node). A we also keep a reference to the `previous` node (one node before the current one), `previous.next` will point to `current`, so to remove `current` all we have to do is change the value of `previous.next` to `current.next`.
+
+The `current` variable is a reference to the node that we want to remove. The `previous` variable is a reference to the node that comes before the element we want to remove; thus, to remove the current node, all we need to do is link `previous.next` to `current.next`, and so our logic works for both cases.
+
+
+## Looping through the List until we get the Desired Position
+
+In the `remove` method, we need to loop through the list until we get to the desired `index` (position). The code snippet to loop until the desired `index` is common in the `LinkedList` class methods. For this reason, we can refactor the code and extract the logic to a separate method so we can reuse it in different places.
+
+`getElementAt`
+
+```
+getElementAt(index) {
+    if (index > = 0 && index <= this.count) {
+        let node = this.head;
+        for (let i = 0; i < index && node != null; i++) {
+            node = node.next;
+        }
+
+        return node;
+    }
+
+    retunr undefined;
+}
+```
+
+Just to make sure we will loop through the list until we find a valid position, we need to verify whether the `index` passed as a paramter in a valid position. If an invalid position is passed as a paramter, we return `undefined`, since the position does not exist in the `LinkedList`. Next, we will initialise the variable `node` that will iterate through the list with the first element, which is the `head`. You can also rename the variable `node` to `current` if you want to keep the same pattern as the other methods of the `LinkedList` class:
+```
+getElementAt(index) {
+    if (index >= 0 && index <= this.count) {
+        let current = this.head;
+        for (let i = 0; i < index && current != null; i++) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    retunr undefined;
+}
+```
+
+Next, we will loop through the list until the desired `index`. When we get out of the loop, the `node` (or `current`) element will be referencing the element at the `index` position. You can also use `i = 1; i <= index` in the for loop to achieve the same result.
+
+
+## Refactoring the Remove Method
+
+We can refactor the `remove` method and the `getElementAt` method that has been created. To do so, we can replace certain lines, as follows:
+
+```
+if (index === 0) {
+    // logic for first position
+} else {
+    const previous = this.getElementAt(index - 1);
+    current = previous.next;
+    previous.next = current.next;
+}
+
+this.count--;
+```
+
+i.e.
+
+`removeAt`
+
+```
+removeAt(index) {
+    // check for out-of-bounds values
+    if (index >= 0 && index < this.count) {
+        let current = this.head;
+
+        // removing first item
+        if (index === 0) {
+            this.head = current.next;
+        } else {
+/// >>> OLD LINE >>>
+            let previous;
+
+            for (let i = 0; i < index; i++) {
+                previous = current;
+                current = current.next;
+            }
+
+            // link previous with current's next: skip it to remove
+            previous.next = current.next;
+
+// >>> NEW LINE >>>
+            const previous = this.getElementAt(index - 1);
+            current = previous.next;
+            previous.next = current.next;
+
+// >>> END >>>
+        }
+
+        this.count--;
+        return current.element;
+    }
+
+    return undefined;
+}
+```
+
+
+## Inserting an Element at any Position
+
+This method provides you with the capability to insert an `element` at any position.
+
+`insert`
+
+```
+insert (element, index) {
+    if (index >= 0 && index <= this.count) {
+        const node = new Node(element);
+
+        // add on first position
+        if (index === 0) {
+            const current = this.head;
+            node.next = current;
+            this.head = node;
+        } else {
+            const previous = this.getElementAt(index - 1);
+            const current = previous.next;
+            node.next = current;
+            previous.next = node;
+        }
+
+        // update size of list
+        this.count++;
+        return true;
+    }
+
+    return false;
+}
+```
+
+As we are handling position (indexes), we need to check the out-of-bound values, just like we did in the `remove` method. If it is out-of-bounds, we return the value `false` to indicate that no tiem was added to the list.
+
+If the position is valid, we are going to handle the different scenarios.
