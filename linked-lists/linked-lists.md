@@ -311,3 +311,65 @@ insert (element, index) {
 As we are handling position (indexes), we need to check the out-of-bound values, just like we did in the `remove` method. If it is out-of-bounds, we return the value `false` to indicate that no tiem was added to the list.
 
 If the position is valid, we are going to handle the different scenarios.
+
+The first scenario is the case where we need to add an `element` at the beginning of the list, meaning the *first position*.
+
+We have the `current` variable making a reference to the first element of the list. What we need to do is set the value `node.next` to `current` (the first element of the list or simply to `head` directly). Now, we have `head` and also `node.next` pointing to `current`. Next, all we have to do is change the `head` reference to `node`, and we have a new element in the list.
+
+Second scenario: adding an `element` in the middle or at the end of the list.
+
+First we need to loop through the list until we reach teh desired position. In this case, we will loop to index `index - 1`, meaning one position before where we desire to insert the new `node`.
+
+When we get out of th eloop, the `previous` variable will be reference to an element before the `index` where we would like to insert the new element, and the `current` variable will be a reference to an `element` present after the position where we would like to insert the new element. In this case, we want o add the new item between `previous` and `current`. So, first we need to make a link between the new (`node`) and the `current`, and then we need to change the link between `previous` and `current`. We need `previous.next` to point to `node` instead of `current`.
+
+If we try to add a new `element` to the last position, `previous` will be a reference to the last item of the list and `current` will be `undefined`. In this case, `node.next` will point to `current`, `previous.next` will point to `node`, and we have a new `element` in the list.
+
+How to add a new `element` in the middle of the list.
+
+In this case, we are trying to insert the new `element` (`node`) between the previous and `current` elements. First we need to set the value of the `node.next` pointer to the `current`. Then, we need to set the value of `previous.next` to `node`. Finally, we have a new `element` in the list!
+
+[!important] It is very important to have variables referencing the ndoes we need to control so that we do not lose the link between the nodes. For this reason, it is better to declare an extra variable to help use with these references.
+
+
+## The indexOf method: returning the position of an element
+
+The `indexOf` method receives the value of an element and returns the position of this element if it is found. Otherwise, it returns `-1`.
+
+`indexOf`
+
+```
+indexOf(element) {
+    let current = this.head;
+    for (let i = 0; i < this.count && current != null; i++) {
+        if (this.equalsFn(element, current.element)) {
+            return i;
+        }
+
+        current = current.next;
+    }
+
+    return -1;
+}
+```
+
+As always, we need a variable that will help use iterate through the list; this variable is `current`, and its first value is the `head`.
+
+Next, we iterate through the elements, starting from the `head` (index `0`) until the list size (the `count` variable) is reached. Just to make sure, we can verify whether the `current` variable is `null` or `undefined` to avoid runtime errors as well.
+
+In each iteration, we will verify whether the element we are looking for is the element in the `current` node. In this case, we will use the equals function that we passed to the `LinkedList` class constructor. The default value of `equalFn` is presented as follows:
+
+```
+function defaultEquals(a, b) {
+    return a === b;
+}
+```
+
+So it would be the same as using `element === current.element`. However, if the element is a complex object, we allow the developer to pass a customized function to the `LinkedClass` to compare the elements.
+
+If the element we are looking for is the element of `current`, we return its position. If not, we iterate to the next node of the list.
+
+The loop will not be executed if the list is empty, or if we reach the end of the list. If we do find the value, we return `-1`.
+
+
+## Removing an element from the linked list
+
