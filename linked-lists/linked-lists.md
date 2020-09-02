@@ -373,3 +373,4 @@ The loop will not be executed if the list is empty, or if we reach the end of th
 
 ## Removing an element from the linked list
 
+With the `indexOf`
