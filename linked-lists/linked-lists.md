@@ -24,6 +24,13 @@ e.g. A scavanger hunt. You have a clue, and this clue is the pointer to the plac
 e.g. A train. A train consists of a series of vehicles (also known as wagons). Each vehicle or wagon is linked to each other. You can easily decouple a wagon, change its place, or add or remove it. (Each wagon is an element of the list and the link between the wagons is the pointer.)
 
 
+## Shortcomings of Arrays
+
+The main problem with using JavaScript arrays, however, is that arrays in JavaScript are implemented as objects, causing them to be less efficient than arrays built in languages such as C++ and Java.
+
+When you determine that the operations performed on an array are too slow for practical use, you can consider using the linked list as an alternative data structure. The linked list can be used in almost every situation where a one-dimensional array is used, except when you need random access to the elements of a list. When a random access is required, an array is the better structure to use.
+
+
 ## Creating the LinkedList class
 
 The skeleton of a `linkedList` class:
