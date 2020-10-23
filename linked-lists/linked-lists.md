@@ -23,6 +23,13 @@ e.g. A scavanger hunt. You have a clue, and this clue is the pointer to the plac
 
 e.g. A train. A train consists of a series of vehicles (also known as wagons). Each vehicle or wagon is linked to each other. You can easily decouple a wagon, change its place, or add or remove it. (Each wagon is an element of the list and the link between the wagons is the pointer.)
 
+## Define Linked Lists
+
+Unlike arrays, which have a fixed size, a linked list is a dynamic data structure that can allocate and deallocate memory at runtime.  There are two types of linked lists:
+
+* Singly linked lists
+* Doubly linked lists
+
 
 ## Shortcomings of Arrays
 
@@ -378,6 +385,85 @@ If the element we are looking for is the element of `current`, we return its pos
 The loop will not be executed if the list is empty, or if we reach the end of the list. If we do find the value, we return `-1`.
 
 
-## Removing an element from the linked list
+## Removing an element from the linked list from a specific position.
 
-With the `indexOf`
+With the `indexOf` method created, we can
+
+Implement two methods:
+
+* `removeAt` removes an element from a specified position
+* `remove` based on the element value.
+
+There are two scenarios when removing elements from the linked list.
+
+`removeAt`
+
+```
+removeAt(index) {
+    // check for out-of-bounds values
+    if (index >= 0 && index < this.count) {
+        let currenct = this.head;
+
+        // removing first item
+        if (index === 0) {
+            this.head = current.next;
+        } else {
+            let previous;
+
+            for (let i = 0; i < index; i++) {
+                previous = current;
+                current = current.next;
+            }
+
+            // link with current's next: skip it to remove
+            previous.next = current.next
+        }
+        this.count--;
+
+        return current.element;
+    }
+
+    return undefined;
+}
+```
+
+As the method is going to receive the `index` (position) of the node that needs to be removed, we need to verify whether the `index` is valid. A valid position would be from `index 0` (included) to the size of the list (`count - 1`, as the `index` starts from zero). If it is not a valid position, we return `undefined`, meaning no element was removed from the list.
+
+First scenario: we want to remove the first element from the list (`index === 0`).
+
+So if we want to remove the first elelemnt, all we have to do is point `head` to the second element of the list. We will make a reference to the first elelment of the list  using the `current` variable (in a minute, we will also use this to iterate the list). So, the `current` variable is a reference to the first element of the list. If we assign `head` to `current.next`, we will be removing the first element. We could also assign `head` to `head.next` direcly (without using the `current` variable as an alternative).
+
+Now let's say we want to remove the last item of the list, or an item from the middle of the list. To do so, we need to iterate through the nodes of the linked list until we get to the desired position. An important detail: the `current` variable will always make reference to the current element of the list that we are looping through. We also need to make a reference to the element that comes before the `current` - we will name it `previous`.
+
+After we iterate the desired position, the `current` variable will hold the node we want to remove from the linked list. So, to remove the `current` node, all we have to do is link `previous.next` with `current.next`. This way, the `current` node will be lost in the computer memory and will be available for cleaning by the garbage collector.
+
+
+## Looping through the list until we get to the desired position
+
+The code snipper to loop until the desired `index` is common in `LinkedList` class methods. It is often refactor to be reused in different places.
+
+```
+getElementAt(index) {
+    if (index >= 0 && index <= this.count) {
+        let node = this.head;
+
+        for (let i = 0; i < index && node != null; i++) {
+            node = node.next;
+        }
+
+        return node;
+    }
+
+    return undefined;
+}
+```
+
+To make sure we loop through the list until we find a valid position, we need to verify whether the `index` passed as a paramter in a valid position. If an invalid position is passed as a parameter, we return `undefined`, since the position does not exist in the `LinkedList`.
+
+Next, we will initialize the variable `node` that will iterate through the list with the first element, which is the `head`. (NB: You can rename the variable `node` to `current` if you want to keep the same pattern as the other methods of the `LinkedList` class.)
+
+Next, we will loop through the list until the desired `index`. When we get out of the loop, the `node` element will be referencing the element at the `index` position. You can also use `i = 1; i <= index` in the for loop to achieve the same result.
+
+
+## Refactoring the remove method
+
